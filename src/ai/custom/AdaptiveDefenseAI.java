@@ -1,5 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
+  /*
+   * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package ai.custom;
@@ -32,6 +32,12 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
     UnitType baseType;
     UnitType barracksType;
     UnitType lightType;
+    UnitType heavyType;
+    UnitType rangedType;
+    private int lastEnemyWorkers = -1;
+    private int lastEnemyLights = -1;
+    private int lastEnemyHeavies = -1;
+    private int lastEnemyRanged = -1;
     // These strategies behave similarly to WD,
     //with  the  difference  being  that  the  defense  line  is  formed  by
     //ranged and lights units for RD and LD, respectively. Since RD
@@ -47,18 +53,22 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
         super(a_pf);
         reset(a_utt);
     }
+    @Override
     public void reset() {
-    	super.reset();
+        super.reset();
+        resetEnemyObservation();
     }
     
-    public void reset(UnitTypeTable a_utt)  
-    {
+    public void reset(UnitTypeTable a_utt) {
         utt = a_utt;
         workerType = utt.getUnitType("Worker");
         baseType = utt.getUnitType("Base");
         barracksType = utt.getUnitType("Barracks");
         lightType = utt.getUnitType("Light");
-    }   
+        heavyType = utt.getUnitType("Heavy");
+        rangedType = utt.getUnitType("Ranged");
+        resetEnemyObservation();
+    }
     
     public AI clone() {
         return new AdaptiveDefenseAI(utt, pf);
@@ -75,6 +85,8 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
     public PlayerAction getAction(int player, GameState gs) {
         PhysicalGameState pgs = gs.getPhysicalGameState();
         Player p = gs.getPlayer(player);
+        EnemyComposition enemyComposition = analyzeEnemyComposition(player, pgs);
+        logEnemyCompositionIfChanged(player, gs.getTime(), enemyComposition);
 //        System.out.println("LightRushAI for player " + player + " (cycle " + gs.getTime() + ")");
         // behavior of bases:
         for (Unit u : pgs.getUnits()) {
@@ -111,6 +123,93 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
         workersBehavior(workers, p, pgs);
         // This method simply takes all the unit actions executed so far, and packages them into a PlayerAction
         return translateActions(player, gs);
+    }
+    private static final class EnemyComposition {
+        int workers;
+        int lights;
+        int heavies;
+        int ranged;
+        int totalCombatUnits() {
+            return lights + heavies + ranged;
+        }
+    }
+    /**
+     * 現在のゲーム状態に存在する敵ユニットを種類別に数える。
+     *
+     * Base、Barracks、Resourceは集計しない。
+     */
+    private EnemyComposition analyzeEnemyComposition(
+            int player,
+            PhysicalGameState pgs) {
+
+        EnemyComposition result =
+                new EnemyComposition();
+
+        for (Unit unit : pgs.getUnits()) {
+
+            // 中立資源などを除外
+            if (unit.getPlayer() < 0) {
+                continue;
+            }
+
+            // 自軍ユニットを除外
+            if (unit.getPlayer() == player) {
+                continue;
+            }
+
+            if (unit.getType() == workerType) {
+                result.workers++;
+            } else if (unit.getType() == lightType) {
+                result.lights++;
+            } else if (unit.getType() == heavyType) {
+                result.heavies++;
+            } else if (unit.getType() == rangedType) {
+                result.ranged++;
+            }
+        }
+
+        return result;
+    }
+    /**
+     * 敵編成が前回観測時から変化した場合だけ表示する。
+     */
+    private void logEnemyCompositionIfChanged(
+            int player,
+            int cycle,
+            EnemyComposition composition) {
+
+        boolean changed =
+                composition.workers != lastEnemyWorkers
+                || composition.lights != lastEnemyLights
+                || composition.heavies != lastEnemyHeavies
+                || composition.ranged != lastEnemyRanged;
+
+        if (!changed) {
+            return;
+        }
+
+        System.out.println(
+                "[AdaptiveDefenseAI]"
+                + " player=" + player
+                + " cycle=" + cycle
+                + " enemyWorkers=" + composition.workers
+                + " enemyLights=" + composition.lights
+                + " enemyHeavies=" + composition.heavies
+                + " enemyRanged=" + composition.ranged
+                + " enemyCombatTotal="
+                + composition.totalCombatUnits()
+        );
+
+        lastEnemyWorkers = composition.workers;
+        lastEnemyLights = composition.lights;
+        lastEnemyHeavies = composition.heavies;
+        lastEnemyRanged = composition.ranged;
+    }
+    private void resetEnemyObservation() {
+        lastEnemyWorkers = -1;
+        lastEnemyLights = -1;
+        lastEnemyHeavies = -1;
+        lastEnemyRanged = -1;
     }
     public void baseBehavior(Unit u, Player p, PhysicalGameState pgs) {
         int nworkers = 0;
