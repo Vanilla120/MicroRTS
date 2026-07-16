@@ -35,6 +35,16 @@ public final class DefenseVisualTest {
                         ? args[1]
                         : "maps/16x16/basesWorkers16x16.xml";
 
+        int defenderPlayer =
+                args.length >= 3
+                        ? Integer.parseInt(args[2])
+                        : 0;
+        if (defenderPlayer != 0 && defenderPlayer != 1) {
+                throw new IllegalArgumentException(
+                        "defenderPlayer must be 0 or 1"
+                );
+        }
+
         UnitTypeTable utt = new UnitTypeTable();
 
         PhysicalGameState pgs =
@@ -47,6 +57,14 @@ public final class DefenseVisualTest {
 
         // Player 1: 標準Rush AI
         AI attacker = createAttacker(attackerName, utt);
+        AI player0 =
+                defenderPlayer == 0 
+                          ? defender
+                          : attacker;
+        AI player1 =
+                defenderPlayer == 0
+                          ? attacker
+                          : defender;
 
         JFrame window =
                 PhysicalGameStatePanel.newVisualizer(
@@ -56,10 +74,13 @@ public final class DefenseVisualTest {
                         false,
                         PhysicalGameStatePanel.COLORSCHEME_BLACK
                 );
-
         window.setTitle(
-                "FixedDefenseAI vs " + attackerName
+        "FixedDefenseAI vs "
+                + attackerName
+                + " | defender=P"
+                + defenderPlayer
         );
+
 
         boolean gameOver = false;
         long nextUpdate =
@@ -67,14 +88,12 @@ public final class DefenseVisualTest {
 
         while (!gameOver && gs.getTime() < MAX_CYCLES) {
             if (System.currentTimeMillis() >= nextUpdate) {
-                PlayerAction defenderAction =
-                        defender.getAction(0, gs);
-
-                PlayerAction attackerAction =
-                        attacker.getAction(1, gs);
-
-                gs.issueSafe(defenderAction);
-                gs.issueSafe(attackerAction);
+                PlayerAction action0 =
+                    player0.getAction(0, gs);
+                PlayerAction action1 =
+                    player1.getAction(1, gs);
+                gs.issueSafe(action0);
+                gs.issueSafe(action1);
 
                 gameOver = gs.cycle();
 
@@ -87,16 +106,31 @@ public final class DefenseVisualTest {
 
         int winner = gs.winner();
 
-        defender.gameOver(winner);
-        attacker.gameOver(winner);
+        player0.gameOver(winner);
+        player1.gameOver(winner);
 
+        int attackerPlayer = 1 - defenderPlayer;
+        String winnerText;
+        if (winner == -1) {
+            winnerText = "DRAW_OR_TIME_LIMIT";
+        } else if (winner == defenderPlayer) {
+            winnerText = "DEFENDER";
+        } else if (winner == attackerPlayer) {
+            winnerText = "ATTACKER";
+        } else {
+            winnerText = "UNKNOWN";
+        }
         System.out.println();
         System.out.println("===== Match Result =====");
-        System.out.println("defender : FixedDefenseAI");
-        System.out.println("attacker : " + attackerName);
-        System.out.println("map      : " + mapPath);
-        System.out.println("winner   : " + winner);
-        System.out.println("endCycle : " + gs.getTime());
+        System.out.println("defender       : FixedDefenseAI");
+        System.out.println("defenderPlayer : " + defenderPlayer);
+        System.out.println("attacker       : " + attackerName);
+        System.out.println("attackerPlayer : " + attackerPlayer);
+        System.out.println("map            : " + mapPath);
+        System.out.println("winner         : " + winnerText);
+        System.out.println("winnerPlayer   : " + winner);
+        System.out.println("endCycle       : " + gs.getTime());
+
     }
 
     private static AI createAttacker(
