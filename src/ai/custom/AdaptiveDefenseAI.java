@@ -38,6 +38,7 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
     private int lastEnemyLights = -1;
     private int lastEnemyHeavies = -1;
     private int lastEnemyRanged = -1;
+    private EnemyStrategy lastEnemyStrategy = null;
     // These strategies behave similarly to WD,
     //with  the  difference  being  that  the  defense  line  is  formed  by
     //ranged and lights units for RD and LD, respectively. Since RD
@@ -86,7 +87,8 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
         PhysicalGameState pgs = gs.getPhysicalGameState();
         Player p = gs.getPlayer(player);
         EnemyComposition enemyComposition = analyzeEnemyComposition(player, pgs);
-        logEnemyCompositionIfChanged(player, gs.getTime(), enemyComposition);
+        EnemyStrategy enemyStrategy = classifyEnemyComposition(enemyComposition);
+        logEnemyCompositionIfChanged(player, gs.getTime(), enemyComposition, enemyStrategy);
 //        System.out.println("LightRushAI for player " + player + " (cycle " + gs.getTime() + ")");
         // behavior of bases:
         for (Unit u : pgs.getUnits()) {
@@ -124,6 +126,16 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
         // This method simply takes all the unit actions executed so far, and packages them into a PlayerAction
         return translateActions(player, gs);
     }
+    /**
+     * 観測した敵編成の分類。
+     */
+    private enum EnemyStrategy {
+        UNKNOWN,
+        WORKER_DOMINANT,
+        LIGHT_DOMINANT,
+        HEAVY_DOMINANT,
+        RANGED_DOMINANT
+    }
     private static final class EnemyComposition {
         int workers;
         int lights;
@@ -141,22 +153,17 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
     private EnemyComposition analyzeEnemyComposition(
             int player,
             PhysicalGameState pgs) {
-
         EnemyComposition result =
                 new EnemyComposition();
-
         for (Unit unit : pgs.getUnits()) {
-
             // 中立資源などを除外
             if (unit.getPlayer() < 0) {
                 continue;
             }
-
             // 自軍ユニットを除外
             if (unit.getPlayer() == player) {
                 continue;
             }
-
             if (unit.getType() == workerType) {
                 result.workers++;
             } else if (unit.getType() == lightType) {
@@ -167,24 +174,98 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
                 result.ranged++;
             }
         }
-
         return result;
     }
     /**
-     * 敵編成が前回観測時から変化した場合だけ表示する。
+     * 敵編成を主要ユニット種類に分類する。
+     *
+     * 戦闘ユニットが存在する場合は、
+     * Light、Heavy、Rangedの中で最多の種類を採用する。
+     *
+     * 戦闘ユニットが存在せずWorkerだけがいる場合は、
+     * WORKER_DOMINANTとする。
+     *
+     * 最多数が同数の場合はUNKNOWNとする。
+     */
+    private EnemyStrategy classifyEnemyComposition(
+            EnemyComposition composition) {
+
+        /*
+         * 戦闘ユニットが存在しない場合。
+         */
+        if (composition.totalCombatUnits() == 0) {
+
+            if (composition.workers > 0) {
+                return EnemyStrategy.WORKER_DOMINANT;
+            }
+
+            return EnemyStrategy.UNKNOWN;
+        }
+
+        int maximumCombatCount =
+                Math.max(
+                        composition.lights,
+                        Math.max(
+                                composition.heavies,
+                                composition.ranged
+                        )
+                );
+
+        int numberOfLeaders = 0;
+
+        if (composition.lights == maximumCombatCount) {
+            numberOfLeaders++;
+        }
+
+        if (composition.heavies == maximumCombatCount) {
+            numberOfLeaders++;
+        }
+
+        if (composition.ranged == maximumCombatCount) {
+            numberOfLeaders++;
+        }
+
+        /*
+         * 例えばLight 2体、Heavy 2体なら、
+         * 単一の主要編成として判断できない。
+         */
+        if (numberOfLeaders != 1) {
+            return EnemyStrategy.UNKNOWN;
+        }
+
+        if (composition.lights == maximumCombatCount) {
+            return EnemyStrategy.LIGHT_DOMINANT;
+        }
+
+        if (composition.heavies == maximumCombatCount) {
+            return EnemyStrategy.HEAVY_DOMINANT;
+        }
+
+        if (composition.ranged == maximumCombatCount) {
+            return EnemyStrategy.RANGED_DOMINANT;
+        }
+
+        return EnemyStrategy.UNKNOWN;
+    }
+    /**
+     * 敵編成または分類が変化した場合だけ表示する。
      */
     private void logEnemyCompositionIfChanged(
             int player,
             int cycle,
-            EnemyComposition composition) {
+            EnemyComposition composition,
+            EnemyStrategy strategy) {
 
-        boolean changed =
+        boolean compositionChanged =
                 composition.workers != lastEnemyWorkers
                 || composition.lights != lastEnemyLights
                 || composition.heavies != lastEnemyHeavies
                 || composition.ranged != lastEnemyRanged;
 
-        if (!changed) {
+        boolean strategyChanged =
+                strategy != lastEnemyStrategy;
+
+        if (!compositionChanged && !strategyChanged) {
             return;
         }
 
@@ -198,18 +279,21 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
                 + " enemyRanged=" + composition.ranged
                 + " enemyCombatTotal="
                 + composition.totalCombatUnits()
+                + " classification=" + strategy
         );
 
         lastEnemyWorkers = composition.workers;
         lastEnemyLights = composition.lights;
         lastEnemyHeavies = composition.heavies;
         lastEnemyRanged = composition.ranged;
+        lastEnemyStrategy = strategy;
     }
     private void resetEnemyObservation() {
         lastEnemyWorkers = -1;
         lastEnemyLights = -1;
         lastEnemyHeavies = -1;
         lastEnemyRanged = -1;
+        lastEnemyStrategy = null;
     }
     public void baseBehavior(Unit u, Player p, PhysicalGameState pgs) {
         int nworkers = 0;
