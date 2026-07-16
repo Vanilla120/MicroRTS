@@ -1,0 +1,19 @@
+[AdaptiveDefenseAI] player=1 cycle=0 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=0 enemyCombatTotal=0 classification=WORKER_DOMINANT
+[AdaptiveDefenseAI] player=1 cycle=0 strategy=WORKER_DOMINANT production=Light
+[AdaptiveDefenseAI] player=1 cycle=50 enemyWorkers=2 enemyLights=0 enemyHeavies=0 enemyRanged=0 enemyCombatTotal=0 classification=WORKER_DOMINANT
+[AdaptiveDefenseAI] player=1 cycle=100 enemyWorkers=3 enemyLights=0 enemyHeavies=0 enemyRanged=0 enemyCombatTotal=0 classification=WORKER_DOMINANT
+[AdaptiveDefenseAI] player=1 cycle=150 enemyWorkers=4 enemyLights=0 enemyHeavies=0 enemyRanged=0 enemyCombatTotal=0 classification=WORKER_DOMINANT
+[AdaptiveDefenseAI] player=1 cycle=200 enemyWorkers=5 enemyLights=0 enemyHeavies=0 enemyRanged=0 enemyCombatTotal=0 classification=WORKER_DOMINANT
+[AdaptiveDefenseAI] player=1 cycle=250 enemyWorkers=6 enemyLights=0 enemyHeavies=0 enemyRanged=0 enemyCombatTotal=0 classification=WORKER_DOMINANT
+[AdaptiveDefenseAI] player=1 cycle=300 enemyWorkers=7 enemyLights=0 enemyHeavies=0 enemyRanged=0 enemyCombatTotal=0 classification=WORKER_DOMINANT
+[AdaptiveDefenseAI] player=1 cycle=350 enemyWorkers=8 enemyLights=0 enemyHeavies=0 enemyRanged=0 enemyCombatTotal=0 classification=WORKER_DOMINANT
+
+===== Match Result =====
+defender       : AdaptiveDefenseAI
+defenderPlayer : 1
+attacker       : WorkerRush
+attackerPlayer : 0
+map            : maps/16x16/basesWorkers16x16.xml
+winner         : ATTACKER
+winnerPlayer   : 0
+endCycle       : 365

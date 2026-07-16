@@ -1,0 +1,65 @@
+[AdaptiveDefenseAI] player=0 cycle=0 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=0 enemyCombatTotal=0 classification=WORKER_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=0 strategy=WORKER_DOMINANT production=Light
+[AdaptiveDefenseAI] player=0 cycle=410 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=410 strategy=HEAVY_DOMINANT production=Ranged
+[AdaptiveDefenseAI] player=0 cycle=530 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=650 enemyWorkers=1 enemyLights=0 enemyHeavies=3 enemyRanged=0 enemyCombatTotal=3 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=676 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=770 enemyWorkers=1 enemyLights=0 enemyHeavies=3 enemyRanged=0 enemyCombatTotal=3 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=803 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=890 enemyWorkers=1 enemyLights=0 enemyHeavies=3 enemyRanged=0 enemyCombatTotal=3 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=892 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1010 enemyWorkers=1 enemyLights=0 enemyHeavies=3 enemyRanged=0 enemyCombatTotal=3 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1030 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1120 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1130 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1250 enemyWorkers=1 enemyLights=0 enemyHeavies=3 enemyRanged=0 enemyCombatTotal=3 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1260 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1360 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1370 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1490 enemyWorkers=1 enemyLights=0 enemyHeavies=3 enemyRanged=0 enemyCombatTotal=3 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1510 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1595 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1610 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1730 enemyWorkers=1 enemyLights=0 enemyHeavies=3 enemyRanged=0 enemyCombatTotal=3 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1740 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1835 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1850 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1970 enemyWorkers=1 enemyLights=0 enemyHeavies=3 enemyRanged=0 enemyCombatTotal=3 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1995 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2065 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2090 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2210 enemyWorkers=1 enemyLights=0 enemyHeavies=3 enemyRanged=0 enemyCombatTotal=3 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2215 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2300 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2330 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2445 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2450 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2540 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2570 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2685 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2690 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2780 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2810 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2925 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=2930 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=3020 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=3050 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=3165 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=3170 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=3260 enemyWorkers=1 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=3310 enemyWorkers=1 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=3365 enemyWorkers=0 enemyLights=0 enemyHeavies=2 enemyRanged=0 enemyCombatTotal=2 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=3405 enemyWorkers=0 enemyLights=0 enemyHeavies=1 enemyRanged=0 enemyCombatTotal=1 classification=HEAVY_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=3555 enemyWorkers=0 enemyLights=0 enemyHeavies=0 enemyRanged=0 enemyCombatTotal=0 classification=UNKNOWN
+[AdaptiveDefenseAI] player=0 cycle=3555 strategy=UNKNOWN production=Light
+
+===== Match Result =====
+defender       : AdaptiveDefenseAI
+defenderPlayer : 0
+attacker       : HeavyRush
+attackerPlayer : 1
+map            : maps/16x16/basesWorkers16x16.xml
+winner         : DRAW_OR_TIME_LIMIT
+winnerPlayer   : -1
+endCycle       : 5000

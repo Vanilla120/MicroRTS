@@ -1,0 +1,35 @@
+[AdaptiveDefenseAI] player=0 cycle=0 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=0 enemyCombatTotal=0 classification=WORKER_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=0 strategy=WORKER_DOMINANT production=Light
+[AdaptiveDefenseAI] player=0 cycle=390 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=1 enemyCombatTotal=1 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=490 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=2 enemyCombatTotal=2 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=590 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=3 enemyCombatTotal=3 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=597 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=2 enemyCombatTotal=2 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=690 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=3 enemyCombatTotal=3 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=701 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=2 enemyCombatTotal=2 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=790 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=3 enemyCombatTotal=3 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=843 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=2 enemyCombatTotal=2 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=890 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=3 enemyCombatTotal=3 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=904 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=2 enemyCombatTotal=2 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=990 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=3 enemyCombatTotal=3 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1090 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=4 enemyCombatTotal=4 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1103 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=3 enemyCombatTotal=3 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1111 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=2 enemyCombatTotal=2 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1190 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=3 enemyCombatTotal=3 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1205 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=2 enemyCombatTotal=2 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1290 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=3 enemyCombatTotal=3 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1333 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=2 enemyCombatTotal=2 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1384 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=1 enemyCombatTotal=1 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1390 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=2 enemyCombatTotal=2 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1490 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=3 enemyCombatTotal=3 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1577 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=2 enemyCombatTotal=2 classification=RANGED_DOMINANT
+[AdaptiveDefenseAI] player=0 cycle=1610 enemyWorkers=1 enemyLights=0 enemyHeavies=0 enemyRanged=3 enemyCombatTotal=3 classification=RANGED_DOMINANT
+
+===== Match Result =====
+defender       : AdaptiveDefenseAI
+defenderPlayer : 0
+attacker       : RangedRush
+attackerPlayer : 1
+map            : maps/16x16/basesWorkers16x16.xml
+winner         : ATTACKER
+winnerPlayer   : 1
+endCycle       : 1715
