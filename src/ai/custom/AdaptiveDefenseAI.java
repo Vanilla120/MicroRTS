@@ -39,6 +39,15 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
     private int lastEnemyHeavies = -1;
     private int lastEnemyRanged = -1;
     private EnemyStrategy lastEnemyStrategy = null;
+    /*
+     * 現在の敵分類と、それに基づいて生産するユニット。
+     */
+    private EnemyStrategy currentEnemyStrategy = EnemyStrategy.UNKNOWN;
+    private UnitType currentProductionType;
+    /*
+     * 同じ生産判断を毎サイクル表示しないための記録。
+     */
+    private UnitType lastLoggedProductionType = null;
     // These strategies behave similarly to WD,
     //with  the  difference  being  that  the  defense  line  is  formed  by
     //ranged and lights units for RD and LD, respectively. Since RD
@@ -57,6 +66,10 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
     @Override
     public void reset() {
         super.reset();
+        currentEnemyStrategy =
+                EnemyStrategy.UNKNOWN;
+        currentProductionType = lightType;
+        lastLoggedProductionType = null;
         resetEnemyObservation();
     }
     
@@ -68,6 +81,13 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
         lightType = utt.getUnitType("Light");
         heavyType = utt.getUnitType("Heavy");
         rangedType = utt.getUnitType("Ranged");
+        currentEnemyStrategy = EnemyStrategy.UNKNOWN;
+        /*
+         * 敵編成が分からない初期状態では、
+         * 固定型と同じLightを選ぶ。
+         */
+        currentProductionType = lightType;
+        lastLoggedProductionType = null;
         resetEnemyObservation();
     }
     
@@ -89,6 +109,12 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
         EnemyComposition enemyComposition = analyzeEnemyComposition(player, pgs);
         EnemyStrategy enemyStrategy = classifyEnemyComposition(enemyComposition);
         logEnemyCompositionIfChanged(player, gs.getTime(), enemyComposition, enemyStrategy);
+        /*
+         * 観測した敵編成から、現在の生産方針を決める。
+         */
+        currentEnemyStrategy = enemyStrategy;
+        currentProductionType = selectDefensiveUnitType(enemyStrategy);
+        logProductionDecisionIfChanged(player, gs.getTime(), enemyStrategy, currentProductionType);
 //        System.out.println("LightRushAI for player " + player + " (cycle " + gs.getTime() + ")");
         // behavior of bases:
         for (Unit u : pgs.getUnits()) {
@@ -189,19 +215,15 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
      */
     private EnemyStrategy classifyEnemyComposition(
             EnemyComposition composition) {
-
         /*
          * 戦闘ユニットが存在しない場合。
          */
         if (composition.totalCombatUnits() == 0) {
-
             if (composition.workers > 0) {
                 return EnemyStrategy.WORKER_DOMINANT;
             }
-
             return EnemyStrategy.UNKNOWN;
         }
-
         int maximumCombatCount =
                 Math.max(
                         composition.lights,
@@ -210,21 +232,16 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
                                 composition.ranged
                         )
                 );
-
         int numberOfLeaders = 0;
-
         if (composition.lights == maximumCombatCount) {
             numberOfLeaders++;
         }
-
         if (composition.heavies == maximumCombatCount) {
             numberOfLeaders++;
         }
-
         if (composition.ranged == maximumCombatCount) {
             numberOfLeaders++;
         }
-
         /*
          * 例えばLight 2体、Heavy 2体なら、
          * 単一の主要編成として判断できない。
@@ -232,20 +249,84 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
         if (numberOfLeaders != 1) {
             return EnemyStrategy.UNKNOWN;
         }
-
         if (composition.lights == maximumCombatCount) {
             return EnemyStrategy.LIGHT_DOMINANT;
         }
-
         if (composition.heavies == maximumCombatCount) {
             return EnemyStrategy.HEAVY_DOMINANT;
         }
-
         if (composition.ranged == maximumCombatCount) {
             return EnemyStrategy.RANGED_DOMINANT;
         }
-
         return EnemyStrategy.UNKNOWN;
+    }
+    /**
+     * 敵編成に応じて生産する防御ユニットを選ぶ。
+     *
+     * この対応関係は今回の実験用ドクトリンであり、
+     * MicroRTSに組み込まれた相性表ではない。
+     */
+    private UnitType selectDefensiveUnitType(
+            EnemyStrategy strategy) {
+        switch (strategy) {
+            case WORKER_DOMINANT:
+                /*
+                 * Workerより戦闘能力と耐久力が高く、
+                 * 比較的高速なLightを使用する。
+                 */
+                return lightType;
+            case LIGHT_DOMINANT:
+                /*
+                 * 高い近接火力を持つHeavyを使用する。
+                 */
+                return heavyType;
+            case HEAVY_DOMINANT:
+                /*
+                 * 遅い近接Heavyに対して、
+                 * 射程を持つRangedを使用する。
+                 */
+                return rangedType;
+            case RANGED_DOMINANT:
+                /*
+                 * 高速で接近でき、Rangedより耐久力がある
+                 * Lightを使用する。
+                 */
+                return lightType;
+            case UNKNOWN:
+            default:
+                /*
+                 * 判断不能時は固定型と同じLightへ戻す。
+                 */
+                return lightType;
+        }
+    }
+    /**
+     * 生産するユニット種類が変わった場合だけ表示する。
+     */
+    private void logProductionDecisionIfChanged(
+            int player,
+            int cycle,
+            EnemyStrategy strategy,
+            UnitType productionType) {
+
+        if (productionType == lastLoggedProductionType) {
+            return;
+        }
+
+        String productionName =
+                productionType == null
+                        ? "NONE"
+                        : productionType.name;
+
+        System.out.println(
+                "[AdaptiveDefenseAI]"
+                + " player=" + player
+                + " cycle=" + cycle
+                + " strategy=" + strategy
+                + " production=" + productionName
+        );
+
+        lastLoggedProductionType = productionType;
     }
     /**
      * 敵編成または分類が変化した場合だけ表示する。
@@ -255,20 +336,16 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
             int cycle,
             EnemyComposition composition,
             EnemyStrategy strategy) {
-
         boolean compositionChanged =
                 composition.workers != lastEnemyWorkers
                 || composition.lights != lastEnemyLights
                 || composition.heavies != lastEnemyHeavies
                 || composition.ranged != lastEnemyRanged;
-
         boolean strategyChanged =
                 strategy != lastEnemyStrategy;
-
         if (!compositionChanged && !strategyChanged) {
             return;
         }
-
         System.out.println(
                 "[AdaptiveDefenseAI]"
                 + " player=" + player
@@ -281,7 +358,6 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
                 + composition.totalCombatUnits()
                 + " classification=" + strategy
         );
-
         lastEnemyWorkers = composition.workers;
         lastEnemyLights = composition.lights;
         lastEnemyHeavies = composition.heavies;
@@ -307,9 +383,20 @@ public class AdaptiveDefenseAI extends AbstractionLayerAI {
             train(u, workerType);
         }
     }
-    public void barracksBehavior(Unit u, Player p, PhysicalGameState pgs) {
-        if (p.getResources() >= lightType.cost) {
-            train(u, lightType);
+    /**
+     * 現在の敵編成に対応するユニットを生産する。
+     */
+    public void barracksBehavior(Unit barracks, Player player, PhysicalGameState pgs) {
+        UnitType selectedType = currentProductionType;
+        /*
+         * 初期化されていない場合でも、
+         * 固定型と同じLightへフォールバックする。
+         */
+        if (selectedType == null) {
+            selectedType = lightType;
+        }
+        if (player.getResources() >= selectedType.cost) {
+            train(barracks, selectedType);
         }
     }
         /**
